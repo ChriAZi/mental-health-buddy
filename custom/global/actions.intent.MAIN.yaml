@@ -1,0 +1,7 @@
+handler:
+  staticPrompt:
+    candidates:
+    - promptResponse:
+        canvas:
+          url: https://mentalhealthbuddy-e75d1.web.app
+transitionToScene: Welcome

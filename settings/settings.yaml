@@ -1,0 +1,8 @@
+category: GAMES_AND_TRIVIA
+defaultLocale: en
+localizedSettings:
+  displayName: MentalBuddy
+  pronunciation: MentalBuddy
+  voice: female_3
+projectId: mentalhealthbuddy-e75d1
+usesInteractiveCanvas: true

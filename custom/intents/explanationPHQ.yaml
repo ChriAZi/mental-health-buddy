@@ -1,0 +1,11 @@
+trainingPhrases:
+- I want ($questionnaireScale1 'more' auto=true) information about the questionnaire
+- I want to know ($questionnaireScale1 'more about the' auto=true) PHQ
+- Give ($questionnaireScale1 'more more' auto=true) information about the questionnaire
+- Can you explain the PHQ in a little ($questionnaireScale1 'more' auto=true) detail please?
+- Can you give me ($questionnaireScale1 'more' auto=true) details about the questionnaire?
+- Can you give me ($questionnaireScale1 'more' auto=true) information about the Patient Health Questionnaire?
+- Can you give me ($questionnaireScale1 'more' auto=true) information about the PHQ?
+- What is the Patient Health Questionnaire
+- What's the PHQ
+- Explanation PHQ
