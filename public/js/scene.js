@@ -25,7 +25,10 @@ export class Scene extends Phaser.Scene {
     this.load.image('background', '/assets/backgroundMentalBuddy.png');
     this.load.path = '/assets/';
 
-    // Sounds
+    /**
+     * Sounds
+     * Confirmation sound from https://freesound.org/s/330046/
+     */
     this.confirmationSound = new Howl({
       src: ['/assets/confirmation.wav'],
       autoplay: false,
@@ -48,15 +51,15 @@ export class Scene extends Phaser.Scene {
    * to produce the initial state of the game.
    */
   create() {
-    this.questions = ['How often have you been bothered by little \n interest or pleasure in doing things over \n the past 2 weeks?',
-      'Over the last 2 weeks how often have you been \n  feeling down, depressed, or hopeless?',
-      'How often have you had trouble falling or \n staying asleep, or sleeping too much?',
-      'How often have you been feeling tired or \n having little energy over the last two weeks?',
-      'How often have you had poor appetite or \n overeating?',
-      'How often have you been feeling bad about yourself \n — or that you are a failure or have let \n yourself or your family down?',
-      'Over the last two weeks how often did you have \n trouble concentrating on things, such as reading \n the newspaper or watching television?',
-      'How often have you been bothered by moving or \n speaking so slowly that other people could have noticed? Or so fidgety or \n restless that you have been moving a lot more than usual?',
-      'How often have you had thoughts that you would be \n better off dead, or thoughts of hurting yourself in some way?'];
+    this.questions = ['How often have you been bothered by little \ninterest or pleasure in doing things over \nthe past 2 weeks?',
+      'Over the last 2 weeks how often have you been \nfeeling down, depressed, or hopeless?',
+      'How often have you had trouble falling or \nstaying asleep, or sleeping too much?',
+      'How often have you been feeling tired or \nhaving little energy over the last two weeks?',
+      'How often have you had poor appetite or \novereating?',
+      'How often have you been feeling bad about yourself \n— or that you are a failure or have let \nyourself or your family down?',
+      'Over the last two weeks how often did you have \ntrouble concentrating on things, such as reading \nthe newspaper or watching television?',
+      'How often have you been bothered by moving or \nspeaking so slowly that other people could \nhave noticed? Or so fidgety or restless that \nyou have been moving a lot more than usual?',
+      'How often have you had thoughts that \nyou would be better off dead, or thoughts of \nhurting yourself in some way?'];
 
     this.visibleObjects = [];
 
@@ -131,7 +134,7 @@ export class Scene extends Phaser.Scene {
       .on('pointerout', () => this.answer1Button.setStyle({ fill: '#51716D' }))
       .on('pointerdown', () => this.answer1Button.setStyle({ fill: '#a3e4db' }))
       .on('pointerup', () => {
-        this.answer1Button.setStyle({ fill: '#ff0' });
+        this.answer1Button.setStyle({ fill: '#51716D' });
         window.interactiveCanvas.sendTextQuery('Not at all');
       });
 
@@ -147,7 +150,7 @@ export class Scene extends Phaser.Scene {
       .on('pointerout', () => this.answer2Button.setStyle({ fill: '#51716D' }))
       .on('pointerdown', () => this.answer2Button.setStyle({ fill: '#a3e4db' }))
       .on('pointerup', () => {
-        this.answer2Button.setStyle({ fill: '#ff0' });
+        this.answer2Button.setStyle({ fill: '#51716D' });
         window.interactiveCanvas.sendTextQuery('Several days');
       });
 
@@ -163,7 +166,7 @@ export class Scene extends Phaser.Scene {
       .on('pointerout', () => this.answer3Button.setStyle({ fill: '#51716D' }))
       .on('pointerdown', () => this.answer3Button.setStyle({ fill: '#a3e4db' }))
       .on('pointerup', () => {
-        this.answer3Button.setStyle({ fill: '#ff0' });
+        this.answer3Button.setStyle({ fill: '#51716D' });
         window.interactiveCanvas.sendTextQuery('More than half the days');
       });
 
@@ -179,7 +182,7 @@ export class Scene extends Phaser.Scene {
       .on('pointerout', () => this.answer4Button.setStyle({ fill: '#51716Ds' }))
       .on('pointerdown', () => this.answer4Button.setStyle({ fill: '#a3e4db' }))
       .on('pointerup', () => {
-        this.answer4Button.setStyle({ fill: '#ff0' });
+        this.answer4Button.setStyle({ fill: '#51716D' });
         window.interactiveCanvas.sendTextQuery('Almost every day');
       });
 
