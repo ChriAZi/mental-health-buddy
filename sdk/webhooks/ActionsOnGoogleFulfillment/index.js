@@ -1,15 +1,41 @@
-const { conversation } = require('@assistant/conversation');
+const {
+  conversation,
+  Canvas,
+} = require('@assistant/conversation');
 const functions = require('firebase-functions');
 
-const app = conversation();
+const app = conversation({ debug: true });
+
+
+const NEW_GREETING = `Hi, I am your MentalBuddy!`;
+
+const RETURNING_GREETINGS = [`Hey, you're back to MentalBuddy!`,
+  `Welcome back to MentalBuddy!`,
+  `I'm glad you're back to check on your mental health!`,
+  `Hey there, you made it! Let's check on your mental health`];
+
+app.handle('greeting', (conv) => {
+  if (!conv.device.capabilities.includes('INTERACTIVE_CANVAS')) {
+    conv.add('Sorry, this device does not support Interactive Canvas!');
+    conv.scene.next.name = 'actions.page.END_CONVERSATION';
+    return;
+  }
+  if (conv.user.lastSeenTime === undefined) {
+    conv.add(`<speak>${NEW_GREETING}</speak>`);
+  } else {
+    conv.add(`<speak>${randomArrayItem(RETURNING_GREETINGS)}</speak>`);
+  }
+  conv.add(`<speak>${NEW_GREETING}</speak>`);
+  conv.add('Should we check up on your mental health together?');
+});
 
 app.handle('buildExplanationTransition', conv => {
   const repeatExplanation = conv.session.params.repeatExplanation;
   let transition;
   const answerIndex = Math.floor(Math.random() * 3);
   if (repeatExplanation) {
-      let answerPossibilities = ['A quick reminder .', 'Here are the question options again.', 'You can ask me about the following.'];
-      transition = answerPossibilities[answerIndex];
+    let answerPossibilities = ['A quick reminder:', 'Here are the question options again.', 'You can ask me about the following.'];
+    transition = answerPossibilities[answerIndex];
   } else {
     transition = 'Sure, I can understand that you might have a lot of questions and I hope I can answer all of them.';
   }
@@ -21,31 +47,62 @@ app.handle('setRepeatExplanation', conv => {
   conv.session.params.repeatExplanation = true;
 });
 
+app.handle('startMentalBuddy', conv => {
+  conv.add(new Canvas({
+    data: {
+      command: 'START_MENTALBUDDY',
+    },
+  }));
+});
+
+
 app.handle('startQuestionnaire', conv => {
   const nextQuestion = 1;
+  conv.add(new Canvas({
+    data: {
+      command: 'START_QUESTIONNAIRE',
+    },
+  }));
   conv.session.params.nextQuestion = nextQuestion;
   conv.session.params.transition = buildQuestionnaireTransitions(nextQuestion);
 });
 
-app.handle('handleQuestionnaireAnswers', conv => {
-   let currentQuestion = conv.session.params.nextQuestion;
-   let nextQuestion = currentQuestion + 1;
-  
-   if(currentQuestion !== 9) {
-     let questionnaireAnswers = conv.session.params.questionnaireAnswers ? conv.session.params.questionnaireAnswers : new Map();
-     questionnaireAnswers[currentQuestion] = (conv.scene.slots["answer_for_q_" + currentQuestion.toString()].value).toLowerCase();
-     conv.session.params.questionnaireAnswers = questionnaireAnswers;
 
-     conv.session.params.nextQuestion = nextQuestion;
-     conv.session.params.transition = buildQuestionnaireTransitions(nextQuestion);
-   }
+app.handle('handleQuestionnaireAnswers', conv => {
+  let currentQuestion = conv.session.params.nextQuestion;
+  let nextQuestion = currentQuestion + 1;
+
+  if (currentQuestion <= 9) {
+    let questionnaireAnswers = conv.session.params.questionnaireAnswers ? conv.session.params.questionnaireAnswers : new Map();
+    questionnaireAnswers[currentQuestion] = (conv.scene.slots["answer_for_q_" + currentQuestion.toString()].value).toLowerCase();
+    conv.session.params.questionnaireAnswers = questionnaireAnswers;
+    conv.session.params.nextQuestion = nextQuestion;
+    if (currentQuestion !== 9) {
+
+      conv.add(new Canvas({
+        data: {
+          command: 'SHOW_NEXT_QUESTION',
+          nextQuestion: nextQuestion,
+        },
+      }));
+      conv.session.params.transition = buildQuestionnaireTransitions(nextQuestion);
+
+    }
+
+  }
+
+
 });
+
+
+
 
 function buildQuestionnaireTransitions(questionIndex) {
   let transition;
   let answerPossibilities;
+
   const answerIndex = Math.floor(Math.random() * 3);
-  switch(questionIndex) {
+  switch (questionIndex) {
     case 1:
       answerPossibilities = ['Here is the first question.', 'Question number one: ', 'First question: '];
       transition = answerPossibilities[answerIndex];
@@ -82,7 +139,7 @@ function buildQuestionnaireTransitions(questionIndex) {
       answerPossibilities = ['Now only one question left: ', 'Great, finally the last question: ', 'And the last question: '];
       transition = answerPossibilities[answerIndex];
       break;
-  	default:
+    default:
       throw new Error('Could not build questionnaire prompt.');
   }
   return transition;
@@ -92,14 +149,14 @@ app.handle('buildIntentTransitions', conv => {
   let transition;
   let answerPossibilities;
   const answerIndex = Math.floor(Math.random() * 3);
-  switch(conv.intent.name) {
+  switch (conv.intent.name) {
     case 'repeatQuestion':
       answerPossibilities = ['The question was: ', 'Here is the question again: ', 'Sure, here it is: '];
-    	transition = answerPossibilities[answerIndex];
+      transition = answerPossibilities[answerIndex];
       break;
     case 'answerOptions':
       answerPossibilities = ['Here is the question again: ', 'The question you were answering was: ', 'A quick reminder of the question: '];
-    	transition = answerPossibilities[answerIndex];
+      transition = answerPossibilities[answerIndex];
       break;
     case 'cannotUnderstandQuestion':
     case 'preferProfessional':
@@ -118,7 +175,7 @@ app.handle('calculateQuestionnaireResult', conv => {
   Object.keys(questionnaireAnswers).forEach((key) => {
     let value = questionnaireAnswers[key];
     let answerScore = 0;
-    switch (value){
+    switch (value) {
       case 'not at all':
         break;
       case 'several days':
@@ -127,15 +184,15 @@ app.handle('calculateQuestionnaireResult', conv => {
       case 'more than half the days':
         answerScore = 2;
         break;
-      case 'nearly every day':
+      case 'almost every day':
         answerScore = 3;
         break;
       default:
         throw new Error('Input value not in range of possible answers.');
     }
     finalScore += answerScore;
-	});
-  
+  });
+
   let intervention = '';
   switch (true) {
     case finalScore <= 4:
@@ -148,10 +205,20 @@ app.handle('calculateQuestionnaireResult', conv => {
       intervention = 'see a therapist';
       break;
     default:
-      throw new Error ('Final score value not in range of possible answers.');
+      throw new Error('Final score value not in range of possible answers.');
   }
   conv.session.params.finalScore = finalScore;
   conv.session.params.intervention = intervention;
+
+  let resultText = 'Your mental health score is ' + finalScore.toString + ' out of 27. I would recommend you to ' + intervention;
+
+   conv.add(new Canvas({
+    data: {
+      command: 'QUESTIONNAIRE_RESULT',
+      resultText: resultText,
+    },
+  }));
+ 
 });
 
 

@@ -1,0 +1,50 @@
+intentEvents:
+- handler:
+    staticPrompt:
+      candidates:
+      - promptResponse:
+          canvas:
+            sendStateDataToCanvasApp: true
+          firstSimple:
+            variants:
+            - speech: Great. Lets get started!
+    webhookHandler: startMentalBuddy
+  intent: actions.intent.YES
+  transitionToScene: Introduction
+- handler:
+    staticPrompt:
+      candidates:
+      - promptResponse:
+          canvas:
+            sendStateDataToCanvasApp: true
+          firstSimple:
+            variants:
+            - speech: Sure thing. Just say "Talk to Mental Buddy" if you changed your
+                mind. Talk to you later.
+  intent: actions.intent.NO
+  transitionToScene: actions.scene.END_CONVERSATION
+- handler:
+    staticPrompt:
+      candidates:
+      - promptResponse:
+          canvas:
+            sendStateDataToCanvasApp: true
+          firstSimple:
+            variants:
+            - speech: Great. Lets get started!
+    webhookHandler: startMentalBuddy
+  intent: startMentalBuddy
+  transitionToScene: Introduction
+onEnter:
+  staticPrompt:
+    candidates:
+    - promptResponse:
+        canvas:
+          sendStateDataToCanvasApp: true
+        firstSimple:
+          variants:
+          - speech: Hi, I am your MentalBuddy! Should we check up on your mental health
+              together?
+        suggestions:
+        - title: "Yes"
+        - title: "No"

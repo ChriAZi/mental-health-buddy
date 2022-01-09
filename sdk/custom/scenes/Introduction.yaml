@@ -1,0 +1,29 @@
+intentEvents:
+- intent: detailedExplanation
+  transitionToScene: Explanation
+- intent: startQuestionnaire
+  transitionToScene: Questionnaire
+onEnter:
+  staticPrompt:
+    candidates:
+    - promptResponse:
+        canvas:
+          sendStateDataToCanvasApp: true
+        firstSimple:
+          variants:
+          - speech: In our session we are going to talk about nine mental health related
+              questions which are build on the Patient Health Questionnaire. This
+              questionnaire is often used as a diagnosis tool by trained professionals.
+              Each question describes a different situation and can be answered using
+              one of four answer options. An answer option describes how often in
+              the last two weeks you have experienced the situation as described in
+              the question. For each question you can choose from the following options-
+              "not at all", "several days", "more than half the days" and "almost
+              every day". And dont worry, you dont need to remember them now. You
+              can ask me for the answer options at any time during our session. If
+              you now feel ready to start the questionnaire, you can say "Start questionnaire".
+              If you would like to get more information about the questionnaire or
+              our session in general, just say "Tell me more".
+        suggestions:
+        - title: Start questionnaire
+        - title: Tell me more
