@@ -14,7 +14,8 @@ const RETURNING_GREETINGS = [`Hey, you're back to MentalBuddy!`,
   `I'm glad you're back to check on your mental health!`,
   `Hey there, you made it! Let's check on your mental health`];
 
-app.handle('greeting', (conv) => {
+//Greeting
+  app.handle('greeting', (conv) => {
   if (!conv.device.capabilities.includes('INTERACTIVE_CANVAS')) {
     conv.add('Sorry, this device does not support Interactive Canvas!');
     conv.scene.next.name = 'actions.page.END_CONVERSATION';
@@ -29,6 +30,9 @@ app.handle('greeting', (conv) => {
   conv.add('Should we check up on your mental health together?');
 });
 
+/**
+ * Build transition to begin the explanation
+ */
 app.handle('buildExplanationTransition', conv => {
   const repeatExplanation = conv.session.params.repeatExplanation;
   let transition;
@@ -43,10 +47,17 @@ app.handle('buildExplanationTransition', conv => {
   conv.session.params.transition = transition;
 });
 
+/**
+ * Set explanation to repeat parameter for nice transition
+ */
 app.handle('setRepeatExplanation', conv => {
   conv.session.params.repeatExplanation = true;
 });
 
+/**
+ * When StartMentalBuddy is either pressed or said it will send
+ * command start MentalBuddy to canvas in order to change screen.
+ */
 app.handle('startMentalBuddy', conv => {
   conv.add(new Canvas({
     data: {
@@ -55,7 +66,11 @@ app.handle('startMentalBuddy', conv => {
   }));
 });
 
-
+/**
+ * When startQuestionnaire is either pressed or said it will send
+ * command start Questionnaire to canvas in order to change screen.
+ * Sets parameter for next question and transition.
+ */
 app.handle('startQuestionnaire', conv => {
   const nextQuestion = 1;
   conv.add(new Canvas({
@@ -67,7 +82,11 @@ app.handle('startQuestionnaire', conv => {
   conv.session.params.transition = buildQuestionnaireTransitions(nextQuestion);
 });
 
-
+/**
+ * When answer option is either pressed or said it will send
+ * command start Questionnaire to canvas in order to change visible question.
+ * Saves questionnaire answer in array and generates transistion to next question.
+ */
 app.handle('handleQuestionnaireAnswers', conv => {
   let currentQuestion = conv.session.params.nextQuestion;
   let nextQuestion = currentQuestion + 1;
@@ -86,17 +105,15 @@ app.handle('handleQuestionnaireAnswers', conv => {
         },
       }));
       conv.session.params.transition = buildQuestionnaireTransitions(nextQuestion);
-
     }
-
   }
-
-
 });
 
-
-
-
+/**
+ * Generates a string for introduce the current question.
+ * @param {int} questionIndex 
+ * @returns String of transition
+ */
 function buildQuestionnaireTransitions(questionIndex) {
   let transition;
   let answerPossibilities;
@@ -145,6 +162,9 @@ function buildQuestionnaireTransitions(questionIndex) {
   return transition;
 }
 
+/**
+ * Builds transition for specific intents.
+ */
 app.handle('buildIntentTransitions', conv => {
   let transition;
   let answerPossibilities;
@@ -169,6 +189,10 @@ app.handle('buildIntentTransitions', conv => {
   conv.session.params.transition = transition;
 });
 
+/**
+ * Adds all questionnaire answers and calculates Score and the right intervention string.
+ * Sends command to canvas in order to show result text.
+ */
 app.handle('calculateQuestionnaireResult', conv => {
   const questionnaireAnswers = conv.session.params.questionnaireAnswers;
   let finalScore = 0;

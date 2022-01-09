@@ -132,7 +132,7 @@ onEnter:
     candidates:
     - promptResponse:
         canvas:
-          url: https://mentalhealthbuddy-e75d1.web.app
+          sendStateDataToCanvasApp: true
         firstSimple:
           variants:
           - speech: $session.params.transition You can ask me for details about our
