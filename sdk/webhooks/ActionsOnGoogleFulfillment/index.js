@@ -234,8 +234,7 @@ app.handle('calculateQuestionnaireResult', conv => {
   conv.session.params.finalScore = finalScore;
   conv.session.params.intervention = intervention;
 
-  let resultText = 'Your mental health score is ' + finalScore + ' out of 27. \nI would recommend you to ' + intervention;
-
+  let resultText = 'Your mental health score is ' + finalScore + ' out of 27. \nI would recommend you to ' + intervention + ".";
    conv.add(new Canvas({
     data: {
       command: 'QUESTIONNAIRE_RESULT',

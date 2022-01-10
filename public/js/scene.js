@@ -221,6 +221,7 @@ export class Scene extends Phaser.Scene {
    */
   startMentalBuddy() {
     this.setVisible(true);
+    this.confirmationSound.play();
     this.startMentalBuddyButton.setVisible(false);
     this.startQuestionnaireButton.setVisible(true);
     this.questionText.setVisible(false);
@@ -237,6 +238,7 @@ export class Scene extends Phaser.Scene {
    */
   startQuestionnaire() {
     this.setVisible(true);
+    this.confirmationSound.play();
     this.startMentalBuddyButton.setVisible(false);
     this.startQuestionnaireButton.setVisible(false);
     this.questionText.setVisible(true);
@@ -265,6 +267,7 @@ export class Scene extends Phaser.Scene {
    * Call to show result text and hide questionnaire.
    */
   showResult(resultString) {
+    this.confirmationSound.play();
     this.setVisible(true);
     this.startMentalBuddyButton.setVisible(false);
     this.startQuestionnaireButton.setVisible(false);
