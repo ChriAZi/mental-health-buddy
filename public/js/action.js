@@ -30,6 +30,9 @@ export class Action {
       START_MENTALBUDDY: (params) => {
         this.mentalBuddyScene.startMentalBuddy();
       },
+      SHOW_EXPLANATION: (params) => {
+        this.mentalBuddyScene.showExplanation();
+      },
       START_QUESTIONNAIRE: (params) => {
         this.mentalBuddyScene.startQuestionnaire();
       },

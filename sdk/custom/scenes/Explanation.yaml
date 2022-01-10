@@ -8,6 +8,7 @@ intentEvents:
           firstSimple:
             variants:
             - speech: Great, lets go!
+    webhookHandler: startQuestionnaire
   intent: startQuestionnaire
   transitionToScene: Questionnaire
 - handler:

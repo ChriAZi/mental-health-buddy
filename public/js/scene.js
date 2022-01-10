@@ -44,6 +44,19 @@ export class Scene extends Phaser.Scene {
         up: [0, 3300],
       }
     });
+
+    this.questions = ['How often have you been bothered by little \ninterest or pleasure in doing things over \nthe past 2 weeks?',
+    'Over the last 2 weeks how often have you been \nfeeling down, depressed, or hopeless?',
+    'How often have you had trouble falling or \nstaying asleep, or sleeping too much?',
+    'How often have you been feeling tired or \nhaving little energy over the last two weeks?',
+    'How often have you had poor appetite or \novereating?',
+    'How often have you been feeling bad about yourself \n— or that you are a failure or have let \nyourself or your family down?',
+    'Over the last two weeks how often did you have \ntrouble concentrating on things, such as reading \nthe newspaper or watching television?',
+    'How often have you been bothered by moving or \nspeaking so slowly that other people could \nhave noticed? Or so fidgety or restless that \nyou have been moving a lot more than usual?',
+    'How often have you had thoughts that \nyou would be better off dead, or thoughts of \nhurting yourself in some way?'];
+
+    this.introductionText = ['9 questions based on the Patient Health Questionnaire. \nEach question describes a different situation. \nAnswer by saying how often in the \nlast two weeks you have experienced the specific situation.'];
+    this.explanationText = ['You can ask me for details about our sessions questionnaire,\nor tell me to give you an example of a question.'];
   }
 
   /**
@@ -51,16 +64,7 @@ export class Scene extends Phaser.Scene {
    * to produce the initial state of the game.
    */
   create() {
-    this.questions = ['How often have you been bothered by little \ninterest or pleasure in doing things over \nthe past 2 weeks?',
-      'Over the last 2 weeks how often have you been \nfeeling down, depressed, or hopeless?',
-      'How often have you had trouble falling or \nstaying asleep, or sleeping too much?',
-      'How often have you been feeling tired or \nhaving little energy over the last two weeks?',
-      'How often have you had poor appetite or \novereating?',
-      'How often have you been feeling bad about yourself \n— or that you are a failure or have let \nyourself or your family down?',
-      'Over the last two weeks how often did you have \ntrouble concentrating on things, such as reading \nthe newspaper or watching television?',
-      'How often have you been bothered by moving or \nspeaking so slowly that other people could \nhave noticed? Or so fidgety or restless that \nyou have been moving a lot more than usual?',
-      'How often have you had thoughts that \nyou would be better off dead, or thoughts of \nhurting yourself in some way?'];
-
+   
     this.visibleObjects = [];
 
     // Background
@@ -76,7 +80,7 @@ export class Scene extends Phaser.Scene {
 
     // Start MentalBuddy Button
     this.startMentalBuddyButton = new Phaser.GameObjects.Text(this, 0,
-      this.scale.height / 2, 'Start MentalBuddy', { fontSize: 75, fill: '#51716D' });
+      this.scale.height * 0.7, 'Start MentalBuddy', { fontSize: 40, fill: '#51716D' });
     this.startMentalBuddyButton.x = (this.scale.width / 2) - (this.startMentalBuddyButton.width / 2);
     this.startMentalBuddyButton
       .setInteractive({ useHandCursor: true })
@@ -91,8 +95,8 @@ export class Scene extends Phaser.Scene {
 
     // Start Questionnaire Button
     this.startQuestionnaireButton = new Phaser.GameObjects.Text(this, 0,
-      this.scale.height / 2, 'Start Questionnaire', { fontSize: 75, fill: '#51716D' });
-    this.startQuestionnaireButton.x = (this.scale.width / 2) - (this.startQuestionnaireButton.width / 2);
+      this.scale.height * 0.7, 'Start Questionnaire', { fontSize: 40, fill: '#51716D' });
+    this.startQuestionnaireButton.x = (this.scale.width / 4) - (this.startQuestionnaireButton.width / 2);
     this.startQuestionnaireButton
       .setVisible(false)
       .setInteractive({ useHandCursor: true })
@@ -103,6 +107,29 @@ export class Scene extends Phaser.Scene {
         this.startQuestionnaireButton.setStyle({ fill: '#ff0' });
         window.interactiveCanvas.sendTextQuery('Start questionnaire');
       });
+    
+          // Explanation Button
+    this.explanationButton = new Phaser.GameObjects.Text(this, 0,
+      this.scale.height * 0.7, 'Tell me more', { fontSize: 40, fill: '#51716D' });
+    this.explanationButton.x = (this.scale.width * 0.75) - (this.explanationButton.width / 2);
+    this.explanationButton
+      .setVisible(false)
+      .setInteractive({ useHandCursor: true })
+      .on('pointerover', () => this.explanationButton.setStyle({ fill: '#a3e4db' }))
+      .on('pointerout', () => this.explanationButton.setStyle({ fill: '#51716D' }))
+      .on('pointerdown', () => this.explanationButton.setStyle({ fill: '#a3e4db' }))
+      .on('pointerup', () => {
+        this.explanationButton.setStyle({ fill: '#ff0' });
+        window.interactiveCanvas.sendTextQuery('Detailed explanation');
+      });
+
+
+
+    // Description Text
+    this.descriptionText = new Phaser.GameObjects.Text(this, 0,
+      0, 'Hi I\'m your MentalBuddy!', { fontSize: 35, fill: '#000' });
+    this.descriptionText.x = (this.scale.width / 2) - (this.descriptionText.width / 2);
+    this.descriptionText.y = (this.scale.height / 3);
 
 
     // Question Text
@@ -113,13 +140,6 @@ export class Scene extends Phaser.Scene {
     this.questionText.setVisible(false);
     this.updateQuestionText();
 
-
-    // Result Text
-    this.resultText = new Phaser.GameObjects.Text(this, 0,
-      0, 'Result', { fontSize: 40, fill: '#000' });
-    this.resultText.x = (this.scale.width / 2) - (this.resultText.width / 2);
-    this.resultText.y = (this.scale.height / 3);
-    this.resultText.setVisible(false);
 
 
     // Answer Option 1 Button
@@ -191,7 +211,7 @@ export class Scene extends Phaser.Scene {
       0, 'Progress Text', { fontSize: 30, fill: '#000' });
     this.progressText.text = '1/9';
     this.progressText.x = (this.scale.width - 80) - (this.progressText.width / 2);
-    this.progressText.y = (this.scale.height -80);
+    this.progressText.y = (this.scale.height - 80);
     this.progressText.setVisible(false);
 
 
@@ -200,9 +220,10 @@ export class Scene extends Phaser.Scene {
     this.add.existing(this.startMentalBuddyButton);
 
     this.add.existing(this.startQuestionnaireButton);
+    this.add.existing(this.explanationButton);
 
     this.add.existing(this.questionText);
-    this.add.existing(this.resultText);
+    this.add.existing(this.descriptionText);
     this.add.existing(this.answer1Button);
     this.add.existing(this.answer2Button);
     this.add.existing(this.answer3Button);
@@ -224,15 +245,39 @@ export class Scene extends Phaser.Scene {
     this.confirmationSound.play();
     this.startMentalBuddyButton.setVisible(false);
     this.startQuestionnaireButton.setVisible(true);
+    this.explanationButton.setVisible(true);
     this.questionText.setVisible(false);
-    this.resultText.setVisible(false);
+    this.descriptionText.setVisible(true);
     this.answer1Button.setVisible(false);
     this.answer2Button.setVisible(false);
     this.answer3Button.setVisible(false);
     this.answer4Button.setVisible(false);
     this.progressText.setVisible(false);
+
+    this.updateDescriptionText(this.introductionText);
     this.updateCanvasState();
   }
+
+    /**
+   * Call to show Explanation.
+   */
+     showExplanation() {
+      this.setVisible(true);
+      this.confirmationSound.play();
+      this.startMentalBuddyButton.setVisible(false);
+      this.startQuestionnaireButton.setVisible(true);
+      this.explanationButton.setVisible(false);
+      this.questionText.setVisible(false);
+      this.descriptionText.setVisible(true);
+      this.answer1Button.setVisible(false);
+      this.answer2Button.setVisible(false);
+      this.answer3Button.setVisible(false);
+      this.answer4Button.setVisible(false);
+      this.progressText.setVisible(false);
+      this.updateDescriptionText(this.explanationText);
+      this.updateCanvasState();
+    }
+
   /**
    * Call to start questionnaire and show question text and answer options.
    */
@@ -241,8 +286,9 @@ export class Scene extends Phaser.Scene {
     this.confirmationSound.play();
     this.startMentalBuddyButton.setVisible(false);
     this.startQuestionnaireButton.setVisible(false);
+    this.explanationButton.setVisible(false);
     this.questionText.setVisible(true);
-    this.resultText.setVisible(false);
+    this.descriptionText.setVisible(false);
     this.answer1Button.setVisible(true);
     this.answer2Button.setVisible(true);
     this.answer3Button.setVisible(true);
@@ -260,7 +306,6 @@ export class Scene extends Phaser.Scene {
     this.updateQuestionText();
     this.progressText.text = nextQuestion + '/9';
     this.updateCanvasState();
-
   }
 
   /**
@@ -271,23 +316,31 @@ export class Scene extends Phaser.Scene {
     this.setVisible(true);
     this.startMentalBuddyButton.setVisible(false);
     this.startQuestionnaireButton.setVisible(false);
+    this.explanationButton.setVisible(false);
     this.questionText.setVisible(false);
-    this.resultText.setVisible(true);
+    this.descriptionText.setVisible(true);
     this.answer1Button.setVisible(false);
     this.answer2Button.setVisible(false);
     this.answer3Button.setVisible(false);
     this.answer4Button.setVisible(false);
     this.progressText.setVisible(false);
 
-    this.resultText.text = resultString;
-    this.resultText.size = (this.scale.width - 80) / this.resultText.text.length;
-    this.resultText.x = this.scale.width / 2 - (this.resultText.width / 2);
+    this.updateDescriptionText(resultString);
     this.updateCanvasState();
   }
 
   updateCanvasState() {
     window.interactiveCanvas.setCanvasState({
     });
+  }
+
+  /**
+  * Call to update position in regard to description text.
+  */
+  updateDescriptionText(description) {
+    this.descriptionText.text = description;
+    this.descriptionText.size = (this.scale.width - 80) / this.descriptionText.text.length;
+    this.descriptionText.x = this.scale.width / 2 - (this.descriptionText.width / 2);
   }
 
   /**

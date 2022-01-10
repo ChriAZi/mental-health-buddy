@@ -43,8 +43,15 @@ app.handle('buildExplanationTransition', conv => {
   } else {
     transition = 'Sure, I can understand that you might have a lot of questions and I hope I can answer all of them.';
   }
+
   conv.session.params.repeatExplanation = false;
   conv.session.params.transition = transition;
+
+  conv.add(new Canvas({
+    data: {
+      command: 'SHOW_EXPLANATION',
+    },
+  }));
 });
 
 /**
