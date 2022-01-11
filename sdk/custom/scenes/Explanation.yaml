@@ -20,6 +20,7 @@ intentEvents:
           firstSimple:
             variants:
             - speech: Alright, then we start with the questionnaire!
+    webhookHandler: startQuestionnaire
   intent: actions.intent.NO
   transitionToScene: Questionnaire
 - handler:
@@ -51,14 +52,14 @@ intentEvents:
             sendStateDataToCanvasApp: true
           firstSimple:
             variants:
-            - speech: Okay, lets go through an example questions together. One of
-                the question might be the following - How often have you felt little
-                interest in doing things over the past two weeks? You could now answer
-                by using one of the four answer options - "not at all", "several days",
-                "more than half the days", "almost every day". In case you dont know
-                what to answer at first, just go with your gut feeling, and remember
-                that there are no right or wrong answers. Just keep in mind that we
-                are interested in how you felt over the last two weeks in particular.
+            - speech: Okay, lets go through an example question together. One of the
+                question might be the following - How often have you felt little interest
+                in doing things over the past two weeks? You could now answer by using
+                one of the four answer options - "not at all", "several days", "more
+                than half the days", "almost every day". In case you dont know what
+                to answer at first, just go with your gut feeling, and remember that
+                there are no right or wrong answers. Just keep in mind that we are
+                interested in how you felt over the last two weeks in particular.
                 I hope that example helps, do you have any further questions?
           suggestions:
           - title: "Yes"

@@ -161,6 +161,8 @@ intentEvents:
     staticPrompt:
       candidates:
       - promptResponse:
+          canvas:
+            sendStateDataToCanvasApp: true
           firstSimple:
             variants:
             - speech: If you feel like you cannot answer the question, thats no problem.
@@ -174,6 +176,8 @@ intentEvents:
     staticPrompt:
       candidates:
       - promptResponse:
+          canvas:
+            sendStateDataToCanvasApp: true
           firstSimple:
             variants:
             - speech: I understand that you might feel uncomfortable talking about
