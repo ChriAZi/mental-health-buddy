@@ -1,0 +1,8 @@
+trainingPhrases:
+- I want the simple explanation
+- Give me the simple explanation
+- Only the necessary stuff
+- The ($result_version 'quick' auto=false) one please
+- I want the ($result_version 'simple' auto=false) ($number1 'one' auto=true)
+- I want ($result_version 'no details' auto=false)
+- Give me the ($result_version 'short version' auto=false)

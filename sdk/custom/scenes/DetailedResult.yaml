@@ -1,0 +1,30 @@
+intentEvents:
+- handler:
+    webhookHandler: buildIntentTransitions
+  intent: repeatResultExplanation
+  transitionToScene: DetailedResult
+onEnter:
+  staticPrompt:
+    candidates:
+    - promptResponse:
+        canvas:
+          sendStateDataToCanvasApp: true
+        firstSimple:
+          variants:
+          - speech: $session.params.transition As you might remember from the beginning,
+              the answers you give during the checkup create a score between 0 and
+              27. The higher this score, the more severe your depressive symptoms
+              are. Your calculated score came out to be $session.params.finalScore
+              out of 27. This means that you fall into the category of $session.params.scoreCategory.
+              $session.params.emotionalResponse I would recommend you to $session.params.intervention.
+              The benefits of that are $session.params.interventionBenefits. Just
+              to summarize again. Your score was $session.params.finalScore which
+              puts you into the category of $session.params.scoreCategory. $session.params.emotionalResponseSummary
+              As described before, the next step for you would now be to $session.params.interventionSummary.
+              I hope that all makes sense to you and you know where to go from here.
+              If not you can ask me to repeat the explanation by saying 'Repeat the
+              explanation' or conclude our session by saying "Cancel".
+        suggestions:
+        - title: Repeat the explanation
+        - title: Cancel
+  webhookHandler: showQuestionnaireResult

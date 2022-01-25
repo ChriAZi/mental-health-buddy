@@ -1,0 +1,12 @@
+trainingPhrases:
+- I am ready
+- ($readyForResult1 'I am ready' auto=true) to go
+- I wont be disturbed for the next minutes
+- ($readyForResult1 'I am ready' auto=true) to proceed
+- Give me my results
+- ($readyForResult1 'Lets get this over with' auto=true)
+- ($readyForResult1 'Tell me about' auto=true) the outcome
+- ($readyForResult1 'I am ready' auto=true) to hear the results
+- I am in a private room now
+- Lets do this
+- ($readyForResult1 'I am ready to continue' auto=true)

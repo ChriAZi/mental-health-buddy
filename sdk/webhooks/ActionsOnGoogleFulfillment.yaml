@@ -6,5 +6,6 @@ handlers:
 - name: buildIntentTransitions
 - name: startQuestionnaire
 - name: startMentalBuddy
+- name: showQuestionnaireResult
 inlineCloudFunction:
   executeFunction: ActionsOnGoogleFulfillment

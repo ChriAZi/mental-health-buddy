@@ -1,0 +1,56 @@
+intentEvents:
+- handler:
+    staticPrompt:
+      candidates:
+      - promptResponse:
+          canvas:
+            sendStateDataToCanvasApp: true
+          firstSimple:
+            variants:
+            - speech: Sure, not a problem at all. You can just come back here when
+                you feel comfortable doing so. Talk to you soon!
+  intent: notReadyForResult
+  transitionToScene: actions.scene.END_CONVERSATION
+- handler:
+    staticPrompt:
+      candidates:
+      - promptResponse:
+          canvas:
+            sendStateDataToCanvasApp: true
+          firstSimple:
+            variants:
+            - speech: Alright, now that you are in a quiet and private space, we can
+                talk about your questionnaire results. For this I first want to understand
+                how much information you want me to give to you. You can either choose
+                a simple explanation by saying "I want the simple explanation" or
+                get a more in-depth one by saying "Give me more details".
+          suggestions:
+          - title: Simple explanation
+          - title: Detailed explanation
+  intent: settingIsReady
+- handler:
+    webhookHandler: buildIntentTransitions
+  intent: simpleResult
+  transitionToScene: SimpleResult
+- handler:
+    webhookHandler: buildIntentTransitions
+  intent: detailedResult
+  transitionToScene: DetailedResult
+onEnter:
+  staticPrompt:
+    candidates:
+    - promptResponse:
+        canvas:
+          sendStateDataToCanvasApp: true
+        firstSimple:
+          variants:
+          - speech: Great, thats it already. Thanks for going through the questions
+              with me. The last step of our checkup is talking about your questionnaire
+              results. As this can be a sensitive topic, I would recommend you to
+              be in a quiet and private place where you are not going to be disturbed
+              for the next few minutes. If you feel more comfortable doing so, you
+              can also ask a close friend or relative to join you for this part. Once
+              you feel ready, just tell me by saying 'I am ready'.
+        suggestions:
+        - title: I am ready
+  webhookHandler: calculateQuestionnaireResult

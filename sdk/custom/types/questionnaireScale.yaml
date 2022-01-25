@@ -1,24 +1,24 @@
 synonym:
   entities:
-    Almost every day:
+    almost every day:
       synonyms:
       - Almost every day
       - Every day
       - Each day
       - Always
       - Almost every
-    More than half the days:
+    more than half the days:
       synonyms:
       - More than half the days
       - More than half
       - Half the days
       - About 50% of the days
       - Around half the time
-    Not at all:
+    not at all:
       synonyms:
       - Not at all
       - Never
-    Several days:
+    several days:
       synonyms:
       - Several days
       - Some days

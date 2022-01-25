@@ -1,0 +1,11 @@
+trainingPhrases:
+- I dont need to know the results
+- Lets do this next ($questionnaireScale1 'time' auto=true)
+- I want to come back to that later
+- I dont want to know my results
+- Lets skip this for now
+- Can we do that later?
+- I dont want to hear my results now
+- ($readyForResult1 'Lets do this another time' auto=true)
+- I dont feel comfortable
+- ($readyForResult1 'I am not ready' auto=true) yet

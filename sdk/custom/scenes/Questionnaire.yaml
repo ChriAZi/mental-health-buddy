@@ -1,6 +1,6 @@
 conditionalEvents:
 - condition: scene.slots.status == "FINAL"
-  transitionToScene: Result
+  transitionToScene: ResultPreparation
 - condition: session.params.nextQuestion == 1
   handler:
     staticPrompt:

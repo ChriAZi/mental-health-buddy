@@ -23,7 +23,16 @@ export class Scene extends Phaser.Scene {
       '/assets/fonts/bitmap/roboto-font.png',
       '/assets/fonts/bitmap/roboto-font.xml');
     this.load.image('background', '/assets/backgroundMentalBuddy.png');
-    this.load.image('buttonBG', '/assets/btn_enabled.png');
+    this.load.image('statusBarFill', '/assets/ProgressBar.png');
+    this.load.image('statusBarEmpty', '/assets/ProgressBarPoints.png');
+    this.load.image('progressBar1', '/assets/ProgressBar1.png');
+    this.load.image('progressBar2', '/assets/ProgressBar2.png');
+    this.load.image('progressBar3', '/assets/ProgressBar3.png');
+    this.load.image('progressBar4', '/assets/ProgressBar4.png');
+    this.load.image('progressBar5', '/assets/ProgressBar5.png');
+    this.load.image('progressBar6', '/assets/ProgressBar6.png');
+    this.load.image('progressBar7', '/assets/ProgressBar7.png');
+    this.load.image('progressBar8', '/assets/ProgressBar8.png');
     this.load.path = '/assets/';
 
     /**
@@ -36,15 +45,7 @@ export class Scene extends Phaser.Scene {
       loop: false,
       volume: 1,
     });
-    this.correctSound = new Howl({
-      src: ['https://actions.google.com/sounds/v1/cartoon/siren_whistle.ogg'],
-      autoplay: false,
-      loop: false,
-      volume: 1,
-      sprite: {
-        up: [0, 3300],
-      }
-    });
+
 
     this.questions = ['How often have you been bothered by little \ninterest or pleasure in doing things over \nthe past 2 weeks?',
       'Over the last 2 weeks how often have you been \nfeeling down, depressed, or hopeless?',
@@ -56,7 +57,7 @@ export class Scene extends Phaser.Scene {
       'How often have you been bothered by moving or \nspeaking so slowly that other people could \nhave noticed? Or so fidgety or restless that \nyou have been moving a lot more than usual?',
       'How often have you had thoughts that \nyou would be better off dead, or thoughts of \nhurting yourself in some way?'];
 
-    this.introductionText = ['• 9 questions based on the Patient Health Questionnaire \n• Each question describes a different situation \n• Answer by saying how often in the last two weeks \n   you have experienced the specific situation'];
+    this.introductionText = ['• 9 questions \n• Based on the Patient Health Questionnaire \n• How often in the last two weeks have you \n   experienced a specific situation?'];
     this.explanationText = ['You can ask me for details about our sessions \nquestionnaire, or tell me to give you an example \nof a question.'];
   }
 
@@ -79,9 +80,9 @@ export class Scene extends Phaser.Scene {
           .setDisplaySize(this.scale.width, this.scale.height - headerHeight);
       });
 
-
+    // Start MentalBuddy Button
     this.startMentalBuddyButton = new Phaser.GameObjects.Text(this, 0,
-      this.scale.height * 0.7, 'Start MentalBuddy', { fontSize: 40, fill: '#fff', backgroundColor: '#29B2AB' });
+      this.scale.height * 0.7, 'Start MentalBuddy', { fontSize: 35, fill: '#fff', backgroundColor: '#29B2AB' });
     this.startMentalBuddyButton.x = (this.scale.width / 2) - (this.startMentalBuddyButton.width / 2);
     this.startMentalBuddyButton.setPadding(16);
     this.startMentalBuddyButton
@@ -97,7 +98,7 @@ export class Scene extends Phaser.Scene {
 
     // Start Questionnaire Button
     this.startQuestionnaireButton = new Phaser.GameObjects.Text(this, 0,
-      this.scale.height * 0.7, 'Start Questionnaire', { fontSize: 40, fill: '#fff', backgroundColor: '#29B2AB' });
+      this.scale.height * 0.7, 'Start Questionnaire', { fontSize: 35, fill: '#fff', backgroundColor: '#29B2AB' });
     this.startQuestionnaireButton.x = (this.scale.width / 4) - (this.startQuestionnaireButton.width / 2);
     this.startQuestionnaireButton.setPadding(16);
     this.startQuestionnaireButton
@@ -113,7 +114,7 @@ export class Scene extends Phaser.Scene {
 
     // Explanation Button
     this.explanationButton = new Phaser.GameObjects.Text(this, 0,
-      this.scale.height * 0.7, 'Tell me more', { fontSize: 40, fill: '#fff', backgroundColor: '#29B2AB' });
+      this.scale.height * 0.7, 'Tell me more', { fontSize: 35, fill: '#fff', backgroundColor: '#29B2AB' });
     this.explanationButton.x = (this.scale.width * 0.75) - (this.explanationButton.width / 2);
     this.explanationButton.setPadding(16);
     this.explanationButton
@@ -129,20 +130,20 @@ export class Scene extends Phaser.Scene {
 
     // Header Text
     this.headerText = new Phaser.GameObjects.Text(this, 0,
-      (this.scale.height * 0.2), 'Start', { fontSize: 30, fill: '#666' });
-    this.headerText.x = (this.scale.width * 0.03);
+      (this.scale.height * 0.2), 'Welcome', { fontSize: 25, fill: '#d3d3d3' });
+    this.headerText.x = (this.scale.width - 30) - this.headerText.width;
 
     // Description Text
     this.descriptionText = new Phaser.GameObjects.Text(this, 0,
-      0, 'Hi I\'m your MentalBuddy!', { fontSize: 35, fill: '#000' });
+      0, 'Welcome to MentalBuddy!\nShould we check up on your mental health?', { fontSize: 35, fill: '#454545' });
     this.descriptionText.x = (this.scale.width / 2) - (this.descriptionText.width / 2);
-    this.descriptionText.y = (this.scale.height / 3);
+    this.descriptionText.y = (this.scale.height * 0.4);
 
 
     // Question Text
     this.questionText = new Phaser.GameObjects.Text(this, 0,
-      0, 'Question Text', { fontSize: 40, fill: '#000' });
-    this.questionText.y = (this.scale.height / 3);
+      0, 'Question Text', { fontSize: 35, fill: '#454545' });
+    this.questionText.y = (this.scale.height * 0.4);
     this.questionText.text = this.questions[0];
     this.questionText.setVisible(false);
     this.updateQuestionText();
@@ -216,12 +217,49 @@ export class Scene extends Phaser.Scene {
       });
 
     //Text Progress of Questions
+    /*
     this.progressText = new Phaser.GameObjects.Text(this, 0,
-      0, 'Progress Text', { fontSize: 30, fill: '#000' });
+      0, 'Progress Text', { fontSize: 30, fill: '#454545' });
     this.progressText.text = '1/9';
     this.progressText.x = (this.scale.width - 80) - (this.progressText.width / 2);
     this.progressText.y = (this.scale.height - 80);
     this.progressText.setVisible(false);
+    */
+
+    this.statusBarEmpty = this.add.image(0, (this.scale.height - 80), 'statusBarEmpty', 'ProgressBarPoints.png', this)
+      .setOrigin(0, 0)
+      .setVisible(false);
+    this.statusBarEmpty.x = (this.scale.width / 2) - (this.statusBarEmpty.width / 2);
+
+    this.statusBarFill = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'statusBarFill', 'ProgressBar.png', this)
+      .setOrigin(0, 0)
+      .setVisible(false);
+    this.progressBar1 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar1', 'ProgressBar1.png', this)
+      .setOrigin(0, 0)
+      .setVisible(false);
+    this.progressBar2 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar2', 'ProgressBar2.png', this)
+      .setOrigin(0, 0)
+      .setVisible(false);
+    this.progressBar3 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar3', 'ProgressBar3.png', this)
+      .setOrigin(0, 0)
+      .setVisible(false);
+    this.progressBar4 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar4', 'ProgressBar4.png', this)
+      .setOrigin(0, 0)
+      .setVisible(false);
+    this.progressBar5 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar5', 'ProgressBar5.png', this)
+      .setOrigin(0, 0)
+      .setVisible(false);
+    this.progressBar6 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar6', 'ProgressBar6.png', this)
+      .setOrigin(0, 0)
+      .setVisible(false);
+    this.progressBar7 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar7', 'ProgressBar7.png', this)
+      .setOrigin(0, 0)
+      .setVisible(false);
+    this.progressBar8 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar8', 'ProgressBar8.png', this)
+      .setOrigin(0, 0)
+      .setVisible(false);
+
+
 
 
     //add visuals to Scene
@@ -236,7 +274,18 @@ export class Scene extends Phaser.Scene {
     this.add.existing(this.answer2Button);
     this.add.existing(this.answer3Button);
     this.add.existing(this.answer4Button);
-    this.add.existing(this.progressText);
+    //this.add.existing(this.progressText);
+    this.add.existing(this.statusBarEmpty);
+    this.add.existing(this.statusBarFill);
+    this.add.existing(this.progressBar1);
+    this.add.existing(this.progressBar2);
+    this.add.existing(this.progressBar3);
+    this.add.existing(this.progressBar4);
+    this.add.existing(this.progressBar5);
+    this.add.existing(this.progressBar6);
+    this.add.existing(this.progressBar7);
+    this.add.existing(this.progressBar8);
+
 
 
     // Set assistant at game level.
@@ -258,10 +307,12 @@ export class Scene extends Phaser.Scene {
     this.answer2Button.setVisible(false);
     this.answer3Button.setVisible(false);
     this.answer4Button.setVisible(false);
-    this.progressText.setVisible(false);
+    //this.progressText.setVisible(false);
+    this.statusBarEmpty.setVisible(false);
+    this.statusBarFill.setVisible(false);
 
     this.questionText.text = this.questions[0];
-    this.progressText.text = '1/9';
+    //this.progressText.text = '1/9';
     this.updateQuestionText();
     this.updateDescriptionText('Hi I am your MentalBuddy!');
     this.updateCanvasState();
@@ -276,13 +327,8 @@ export class Scene extends Phaser.Scene {
     this.startMentalBuddyButton.setVisible(false);
     this.startQuestionnaireButton.setVisible(true);
     this.explanationButton.setVisible(true);
-    this.questionText.setVisible(false);
     this.descriptionText.setVisible(true);
-    this.answer1Button.setVisible(false);
-    this.answer2Button.setVisible(false);
-    this.answer3Button.setVisible(false);
-    this.answer4Button.setVisible(false);
-    this.progressText.setVisible(false);
+
 
     this.updateHeaderText('Introduction');
     this.updateDescriptionText(this.introductionText);
@@ -300,11 +346,6 @@ export class Scene extends Phaser.Scene {
     this.explanationButton.setVisible(false);
     this.questionText.setVisible(false);
     this.descriptionText.setVisible(true);
-    this.answer1Button.setVisible(false);
-    this.answer2Button.setVisible(false);
-    this.answer3Button.setVisible(false);
-    this.answer4Button.setVisible(false);
-    this.progressText.setVisible(false);
 
     this.startQuestionnaireButton.x = (this.scale.width / 2) - (this.startQuestionnaireButton.width / 2);
     this.updateHeaderText('Explanation');
@@ -327,7 +368,8 @@ export class Scene extends Phaser.Scene {
     this.answer2Button.setVisible(true);
     this.answer3Button.setVisible(true);
     this.answer4Button.setVisible(true);
-    this.progressText.setVisible(true);
+    //this.progressText.setVisible(true);
+    this.statusBarEmpty.setVisible(true);
     this.updateHeaderText('Questionnaire');
 
     this.updateCanvasState();
@@ -340,13 +382,37 @@ export class Scene extends Phaser.Scene {
     this.confirmationSound.play();
     this.questionText.text = this.questions[nextQuestion - 1];
     this.updateQuestionText();
-    this.progressText.text = nextQuestion + '/9';
+    //this.progressText.text = nextQuestion + '/9';
+    this.updateProgressBar(nextQuestion - 1);
     this.updateCanvasState();
   }
 
   /**
    * Call to show result text and hide questionnaire.
    */
+  showPreparation() {
+    this.confirmationSound.play();
+    this.setVisible(true);
+    this.startMentalBuddyButton.setVisible(false);
+    this.startQuestionnaireButton.setVisible(false);
+    this.explanationButton.setVisible(false);
+    this.questionText.setVisible(false);
+    this.descriptionText.setVisible(true);
+    this.answer1Button.setVisible(false);
+    this.answer2Button.setVisible(false);
+    this.answer3Button.setVisible(false);
+    this.answer4Button.setVisible(false);
+    //this.progressText.setVisible(false);
+    this.statusBarEmpty.setVisible(false);
+    this.statusBarFill.setVisible(false);
+
+    this.updateHeaderText('Preparation');
+    this.updateDescriptionText('I am preparing your results. \nAre you ready for them?');
+    this.updateCanvasState();
+  }
+  /**
+ * Call to show result text and hide questionnaire.
+ */
   showResult(resultString) {
     this.confirmationSound.play();
     this.setVisible(true);
@@ -359,7 +425,8 @@ export class Scene extends Phaser.Scene {
     this.answer2Button.setVisible(false);
     this.answer3Button.setVisible(false);
     this.answer4Button.setVisible(false);
-    this.progressText.setVisible(false);
+    //this.progressText.setVisible(false);
+    this.statusBarFill.setVisible(false);
     this.updateHeaderText('Result');
     this.updateDescriptionText(resultString);
     this.updateCanvasState();
@@ -370,19 +437,67 @@ export class Scene extends Phaser.Scene {
     });
   }
 
+  updateProgressBar(questionIndex) {
+    this.progressBar1.setVisible(false);
+    this.progressBar2.setVisible(false);
+    this.progressBar3.setVisible(false);
+    this.progressBar4.setVisible(false);
+    this.progressBar5.setVisible(false);
+    this.progressBar6.setVisible(false);
+    this.progressBar7.setVisible(false);
+    this.progressBar8.setVisible(false);
+    this.statusBarFill.setVisible(false);
+
+    switch (questionIndex) {
+      case 1:
+        this.progressBar1.setVisible(true);
+        break;
+      case 2:
+        this.progressBar2.setVisible(true);
+        break;
+      case 3:
+        this.progressBar3.setVisible(true);
+        break;
+      case 4:
+        this.progressBar4.setVisible(true);
+        break;
+      case 5:
+        this.progressBar5.setVisible(true);
+        break;
+      case 6:
+        this.progressBar6.setVisible(true);
+        break;
+      case 7:
+        this.progressBar7.setVisible(true);
+        break;
+      case 8:
+        this.progressBar8.setVisible(true);
+        break;
+      case 9:
+        this.statusBarFill.setVisible(true);
+        break;
+      default:
+        throw new Error('Questionindex out of range.');
+    }
+
+  }
+
   /**
   * Call to update position in regard to description text.
   */
   updateDescriptionText(description) {
     this.descriptionText.text = description;
     this.descriptionText.size = (this.scale.width - 80) / this.descriptionText.text.length;
+    this.descriptionText.y = (this.scale.height / 3);
     this.descriptionText.x = this.scale.width / 2 - (this.descriptionText.width / 2);
+
   }
   /**
 * Call to update position in regard to header text.
 */
   updateHeaderText(description) {
     this.headerText.text = description;
+    this.headerText.x = (this.scale.width - 30) - this.headerText.width;
   }
 
   /**
