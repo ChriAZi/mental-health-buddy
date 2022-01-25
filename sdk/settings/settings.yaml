@@ -1,8 +1,19 @@
 category: GAMES_AND_TRIVIA
 defaultLocale: en
 localizedSettings:
+  developerEmail: m.kruse@campus.lmu.de
+  developerName: Mari Kruse
   displayName: MentalBuddy
+  fullDescription: With MentalBuddy you can check-up on your mental health by answering
+    nine questions based on the PHQ-9. The action will give you recommendations for
+    next steps based on the results.
+  privacyPolicyUrl: https://docs.google.com/document/d/16otZu8mYuCz2kEcZTy0Gm9OsE4vv8SZ1_LcQ_exEImU/edit?usp=sharing&resourcekey=0-7y1UJtFbKhbOKomdAQiSug
   pronunciation: MentalBuddy
+  sampleInvocations:
+  - Talk to MentalBuddy
+  - Open MentalBuddy
+  shortDescription: A mental health check-up
+  smallLogoImage: https://lh3.googleusercontent.com/8O7x4aIPjG8gFMcPCL6kO19FH4wUEeoLUFva4jMkyI4TSjU1YB2aT17CaCGChZAlxbzZJ4f7cRkQ
   voice: female_3
 projectId: mentalhealthbuddy-e75d1
 usesInteractiveCanvas: true

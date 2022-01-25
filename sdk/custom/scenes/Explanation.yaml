@@ -19,18 +19,6 @@ intentEvents:
             sendStateDataToCanvasApp: true
           firstSimple:
             variants:
-            - speech: Alright, then we start with the questionnaire!
-    webhookHandler: startQuestionnaire
-  intent: actions.intent.NO
-  transitionToScene: Questionnaire
-- handler:
-    staticPrompt:
-      candidates:
-      - promptResponse:
-          canvas:
-            sendStateDataToCanvasApp: true
-          firstSimple:
-            variants:
             - speech: The questionnaire we are using during our session is build on
                 the Patient Health Questionnaire - short PHQ, which is often used
                 as a diagnosis tool by trained professionals. The PHQ is made up of
@@ -125,10 +113,6 @@ intentEvents:
           - title: "Yes"
           - title: "No"
   intent: questionnaireOutcome
-- handler:
-    webhookHandler: setRepeatExplanation
-  intent: actions.intent.YES
-  transitionToScene: Explanation
 onEnter:
   staticPrompt:
     candidates:

@@ -36,6 +36,20 @@ intentEvents:
     webhookHandler: buildIntentTransitions
   intent: detailedResult
   transitionToScene: DetailedResult
+- handler:
+    staticPrompt:
+      candidates:
+      - promptResponse:
+          canvas:
+            sendStateDataToCanvasApp: true
+          firstSimple:
+            variants:
+            - speech: Sure, not a problem at all. You can just come back here when
+                you feel comfortable doing so. Talk to you soon!
+  intent: actions.intent.NO
+  transitionToScene: actions.scene.END_CONVERSATION
+- intent: actions.intent.YES
+  transitionToScene: SimpleResult
 onEnter:
   staticPrompt:
     candidates:

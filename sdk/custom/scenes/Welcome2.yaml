@@ -1,11 +1,7 @@
 intentEvents:
-- handler:
-    webhookHandler: startMentalBuddy
-  intent: startMentalBuddy
+- intent: startMentalBuddy
   transitionToScene: Introduction
-- handler:
-    webhookHandler: startMentalBuddy
-  intent: actions.intent.YES
+- intent: actions.intent.YES
   transitionToScene: Introduction
 - intent: actions.intent.NO
   transitionToScene: actions.scene.END_CONVERSATION

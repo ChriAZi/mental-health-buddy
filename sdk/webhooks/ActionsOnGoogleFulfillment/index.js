@@ -12,7 +12,7 @@ const NEW_GREETING = `Hi, I am your MentalBuddy!`;
 const RETURNING_GREETINGS = [`Hey, you're back to MentalBuddy!`,
   `Welcome back to MentalBuddy!`,
   `I'm glad you're back to check on your mental health!`,
-  `Hey there, you made it! Let's check on your mental health`];
+  `Hey there, you made it! Let's check on your mental health`]; 
 
 /** 
  * Initial Greeting 
@@ -28,7 +28,7 @@ const RETURNING_GREETINGS = [`Hey, you're back to MentalBuddy!`,
   } else {
     conv.add(`<speak>${randomArrayItem(RETURNING_GREETINGS)}</speak>`);
   }
-  //conv.add(`<speak>${NEW_GREETING}</speak>`);
+  conv.add(`<speak>${NEW_GREETING}</speak>`);
   conv.add('Should we check up on your mental health together?');
 });
 
@@ -298,8 +298,7 @@ app.handle('calculateQuestionnaireResult', conv => {
   conv.session.params.interventionBenefits = interventionBenefits;
   conv.session.params.emotionalResponseSummary = emotionalResponseSummary;
   conv.session.params.interventionSummary = interventionSummary;
-
-  //conv.session.params.resultText = 'Score: ' + finalScore + ' out of 27. \nRecommendation: ' + intervention + "\nBenefits: " + interventionBenefits;
+  
   conv.session.params.resultText = 'Score: ' + finalScore + ' out of 27 \nRecommendation: ' + interventionSummary;
 
 

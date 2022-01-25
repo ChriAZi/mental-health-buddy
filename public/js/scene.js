@@ -226,36 +226,36 @@ export class Scene extends Phaser.Scene {
     this.progressText.setVisible(false);
     */
 
-    this.statusBarEmpty = this.add.image(0, (this.scale.height - 80), 'statusBarEmpty', 'ProgressBarPoints.png', this)
+    this.statusBarEmpty = this.add.image(0, (this.scale.height * 0.21), 'statusBarEmpty', 'ProgressBarPoints.png', this)
       .setOrigin(0, 0)
       .setVisible(false);
     this.statusBarEmpty.x = (this.scale.width / 2) - (this.statusBarEmpty.width / 2);
 
-    this.statusBarFill = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'statusBarFill', 'ProgressBar.png', this)
+    this.statusBarFill = this.add.image(this.statusBarEmpty.x, this.statusBarEmpty.y, 'statusBarFill', 'ProgressBar.png', this)
       .setOrigin(0, 0)
       .setVisible(false);
-    this.progressBar1 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar1', 'ProgressBar1.png', this)
+    this.progressBar1 = this.add.image(this.statusBarEmpty.x, this.statusBarEmpty.y, 'progressBar1', 'ProgressBar1.png', this)
       .setOrigin(0, 0)
       .setVisible(false);
-    this.progressBar2 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar2', 'ProgressBar2.png', this)
+    this.progressBar2 = this.add.image(this.statusBarEmpty.x, this.statusBarEmpty.y, 'progressBar2', 'ProgressBar2.png', this)
       .setOrigin(0, 0)
       .setVisible(false);
-    this.progressBar3 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar3', 'ProgressBar3.png', this)
+    this.progressBar3 = this.add.image(this.statusBarEmpty.x, this.statusBarEmpty.y, 'progressBar3', 'ProgressBar3.png', this)
       .setOrigin(0, 0)
       .setVisible(false);
-    this.progressBar4 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar4', 'ProgressBar4.png', this)
+    this.progressBar4 = this.add.image(this.statusBarEmpty.x, this.statusBarEmpty.y, 'progressBar4', 'ProgressBar4.png', this)
       .setOrigin(0, 0)
       .setVisible(false);
-    this.progressBar5 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar5', 'ProgressBar5.png', this)
+    this.progressBar5 = this.add.image(this.statusBarEmpty.x, this.statusBarEmpty.y, 'progressBar5', 'ProgressBar5.png', this)
       .setOrigin(0, 0)
       .setVisible(false);
-    this.progressBar6 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar6', 'ProgressBar6.png', this)
+    this.progressBar6 = this.add.image(this.statusBarEmpty.x, this.statusBarEmpty.y, 'progressBar6', 'ProgressBar6.png', this)
       .setOrigin(0, 0)
       .setVisible(false);
-    this.progressBar7 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar7', 'ProgressBar7.png', this)
+    this.progressBar7 = this.add.image(this.statusBarEmpty.x, this.statusBarEmpty.y, 'progressBar7', 'ProgressBar7.png', this)
       .setOrigin(0, 0)
       .setVisible(false);
-    this.progressBar8 = this.add.image(this.statusBarEmpty.x, (this.scale.height - 80), 'progressBar8', 'ProgressBar8.png', this)
+    this.progressBar8 = this.add.image(this.statusBarEmpty.x, this.statusBarEmpty.y, 'progressBar8', 'ProgressBar8.png', this)
       .setOrigin(0, 0)
       .setVisible(false);
 
