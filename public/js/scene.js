@@ -382,7 +382,6 @@ export class Scene extends Phaser.Scene {
     this.confirmationSound.play();
     this.questionText.text = this.questions[nextQuestion - 1];
     this.updateQuestionText();
-    //this.progressText.text = nextQuestion + '/9';
     this.updateProgressBar(nextQuestion - 1);
     this.updateCanvasState();
   }
@@ -402,8 +401,8 @@ export class Scene extends Phaser.Scene {
     this.answer2Button.setVisible(false);
     this.answer3Button.setVisible(false);
     this.answer4Button.setVisible(false);
-    //this.progressText.setVisible(false);
     this.statusBarEmpty.setVisible(false);
+    this.progressBar8.setVisible(false);
     this.statusBarFill.setVisible(false);
 
     this.updateHeaderText('Preparation');
@@ -425,7 +424,6 @@ export class Scene extends Phaser.Scene {
     this.answer2Button.setVisible(false);
     this.answer3Button.setVisible(false);
     this.answer4Button.setVisible(false);
-    //this.progressText.setVisible(false);
     this.statusBarFill.setVisible(false);
     this.updateHeaderText('Result');
     this.updateDescriptionText(resultString);

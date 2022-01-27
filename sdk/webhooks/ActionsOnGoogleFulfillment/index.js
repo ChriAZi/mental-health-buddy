@@ -278,7 +278,7 @@ app.handle('calculateQuestionnaireResult', conv => {
        intervention = 'try out some evidence-based mindfulness exercises. You could, for example, try some from the Greater Good Science Center website of UC Berkeley or ask your assistant to do a guided meditation on Calm.';
        interventionBenefits = 'that research has repeatedly shown that such exercises can reduce the intensity of symptoms of depression and anxiety. However, if you dont feel any better after two weeks from now, I would still recommend you to book an appointment with a therapist.';
        emotionalResponseSummary = 'Again, this might sound overwhelming but can be dealt with using the right therapeutic intervention.';
-       interventionSummary = 'Try some mindfulness exercises and see a \ntherapist in case you don\'t feel any better two weeks from now.';
+       interventionSummary = 'Try some mindfulness exercises \nand see a therapist in case you don\'t \nfeel any better two weeks from now.';
       break;
     case finalScore > 9:
        scoreCategory = 'medium to severe depressive symptoms';
