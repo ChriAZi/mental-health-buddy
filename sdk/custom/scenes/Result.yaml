@@ -1,0 +1,21 @@
+intentEvents:
+- intent: actions.intent.YES
+  transitionToScene: actions.scene.END_CONVERSATION
+- intent: actions.intent.NO
+  transitionToScene: actions.scene.END_CONVERSATION
+onEnter:
+  staticPrompt:
+    candidates:
+    - promptResponse:
+        canvas:
+          sendStateDataToCanvasApp: true
+        firstSimple:
+          variants:
+          - speech: Great, we are done. Thanks for going through the questions with
+              me. Based on your answers, your mental health score is $session.params.finalScore
+              out of 27. In this case, I would recommend you to $session.params.intervention.
+              Would you like to get more information on how to proceed from here?
+        suggestions:
+        - title: "Yes"
+        - title: "No"
+  webhookHandler: calculateQuestionnaireResult

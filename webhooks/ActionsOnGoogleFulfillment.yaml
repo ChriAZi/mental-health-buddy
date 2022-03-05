@@ -1,9 +1,0 @@
-handlers:
-- name: handleQuestionnaireAnswers
-- name: calculateQuestionnaireResult
-- name: buildExplanationTransition
-- name: setRepeatExplanation
-- name: buildIntentTransitions
-- name: startQuestionnaire
-inlineCloudFunction:
-  executeFunction: ActionsOnGoogleFulfillment

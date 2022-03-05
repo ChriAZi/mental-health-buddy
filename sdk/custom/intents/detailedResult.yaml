@@ -1,0 +1,8 @@
+trainingPhrases:
+- Detailed explanation
+- I want more details
+- Give me the ($resultVersion1 'long version' auto=true)
+- Please explain it all to me
+- I want the ($resultVersion1 'in-depth' auto=true) version
+- Give me ($questionnaireScale1 'more' auto=true) ($resultVersion1 'details' auto=true)
+- I want ($resultVersion1 'all the information' auto=true)

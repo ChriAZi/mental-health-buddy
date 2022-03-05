@@ -1,0 +1,28 @@
+synonym:
+  entities:
+    almost every day:
+      synonyms:
+      - Almost every day
+      - Every day
+      - Each day
+      - Always
+      - Almost every
+    more than half the days:
+      synonyms:
+      - More than half the days
+      - More than half
+      - Half the days
+      - About 50% of the days
+      - Around half the time
+    not at all:
+      synonyms:
+      - Not at all
+      - Never
+    several days:
+      synonyms:
+      - Several days
+      - Some days
+      - Several
+      - Some
+      - Every once in a while
+  matchType: FUZZY_MATCH
